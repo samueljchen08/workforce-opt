@@ -1,0 +1,167 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robust ticket routing — research results</title><style>
+body{font:16px/1.6 system-ui,sans-serif;color:#17252b;background:#fafaf8;max-width:1180px;margin:40px auto;padding:0 24px}h1{font-size:32px;line-height:1.15}h2{font-size:24px;margin-top:48px}a{color:#245d7b}p{max-width:85ch}.note{border-left:3px solid #245d7b;padding:8px 18px;background:#eef3f4}.figures{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px}figure{margin:24px 0}img{width:100%;height:auto}figcaption{font-size:14px;color:#46545c}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:9px 12px;border-bottom:1px solid #d8dedd;text-align:right}th:first-child,td:first-child{text-align:left}section{scroll-margin-top:24px}@media(max-width:600px){body{padding:0 12px}.figures{display:block}table{font-size:12px}td,th{padding:5px}}
+</style><header><p>6.C571 · Sam Chen, Christina Ding, Leo Sun</p><h1>Robust ticket routing</h1>
+<p>A complete real-data implementation of routing LPs, uncertainty penalties, fairness and cross-training.</p>
+<p class="note">These are retrospective observational proxies, not measured outcomes under alternative assignments. Compare backlog first. Historical unknown assignments are missing labels, not verified operational backlog. Shifted geometric hours are not arithmetic mean resolution times.</p>
+<nav><a href="#reproduction">Plan reproduction</a> · <a href="#strict">Stricter scenario</a></nav></header><section id="reproduction"><h2>Reproduction</h2>
+<p>Completed-ticket cohort; hindsight weekly roster; creation-date fit. 34 test weeks. Validation selected k=50, z=0.0.</p>
+<p><a href="reproduction/RESULTS.md">Full interpretation</a> · <a href="reproduction/comparison.csv">Comparison CSV</a> · <a href="reproduction/metadata.json">Audit and provenance</a> · <a href="reproduction/cross_training.csv">Training scenarios</a></p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Method</th>
+      <th>Service proxy hours</th>
+      <th>Unassigned tickets</th>
+      <th>Coverage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fairness 1.25</td>
+      <td>71.48</td>
+      <td>614.00</td>
+      <td>84.99%</td>
+    </tr>
+    <tr>
+      <td>Fairness 1.5</td>
+      <td>72.39</td>
+      <td>374.00</td>
+      <td>91.04%</td>
+    </tr>
+    <tr>
+      <td>Fairness 2</td>
+      <td>72.72</td>
+      <td>115.00</td>
+      <td>97.30%</td>
+    </tr>
+    <tr>
+      <td>Fairness 3</td>
+      <td>71.75</td>
+      <td>20.00</td>
+      <td>99.60%</td>
+    </tr>
+    <tr>
+      <td>Greedy</td>
+      <td>73.33</td>
+      <td>27.00</td>
+      <td>99.42%</td>
+    </tr>
+    <tr>
+      <td>Historical</td>
+      <td>68.06</td>
+      <td>0.00</td>
+      <td>100.00%</td>
+    </tr>
+    <tr>
+      <td>Historical proportions</td>
+      <td>78.71</td>
+      <td>27.05</td>
+      <td>99.43%</td>
+    </tr>
+    <tr>
+      <td>M1 naive</td>
+      <td>75.56</td>
+      <td>20.00</td>
+      <td>99.60%</td>
+    </tr>
+    <tr>
+      <td>M1 tuned shrinkage</td>
+      <td>71.83</td>
+      <td>20.00</td>
+      <td>99.60%</td>
+    </tr>
+    <tr>
+      <td>M2 robust</td>
+      <td>71.83</td>
+      <td>20.00</td>
+      <td>99.60%</td>
+    </tr>
+    <tr>
+      <td>Round-robin</td>
+      <td>78.71</td>
+      <td>20.00</td>
+      <td>99.60%</td>
+    </tr>
+  </tbody>
+</table><div class="figures"><figure><a href="reproduction/comparison.svg"><img loading="lazy" src="reproduction/comparison.png" alt="Assigned-ticket service proxy. Read together with coverage and backlog."></a><figcaption>Assigned-ticket service proxy. Read together with coverage and backlog.</figcaption></figure><figure><a href="reproduction/optimizers_curse.svg"><img loading="lazy" src="reproduction/optimizers_curse.png" alt="Planning proxies are optimistic; held-out scoring changes the comparison."></a><figcaption>Planning proxies are optimistic; held-out scoring changes the comparison.</figcaption></figure><figure><a href="reproduction/validation.svg"><img loading="lazy" src="reproduction/validation.png" alt="Validation-only tuning. At z=0, the selected policy is shrinkage-only."></a><figcaption>Validation-only tuning. At z=0, the selected policy is shrinkage-only.</figcaption></figure><figure><a href="reproduction/fairness.svg"><img loading="lazy" src="reproduction/fairness.png" alt="Lower workload inequality can come with additional unassigned tickets."></a><figcaption>Lower workload inequality can come with additional unassigned tickets.</figcaption></figure><figure><a href="reproduction/capacity_duals.svg"><img loading="lazy" src="reproduction/capacity_duals.png" alt="Marginal value per ticket slot; strict-mode duals hold backlog fixed."></a><figcaption>Marginal value per ticket slot; strict-mode duals hold backlog fixed.</figcaption></figure><figure><a href="reproduction/cross_training.svg"><img loading="lazy" src="reproduction/cross_training.png" alt="Central new-pair cost assumptions can yield no benefit from training."></a><figcaption>Central new-pair cost assumptions can yield no benefit from training.</figcaption></figure><figure><a href="reproduction/cell_stability.svg"><img loading="lazy" src="reproduction/cell_stability.png" alt="Observed employee-category associations are not causal employee effects."></a><figcaption>Observed employee-category associations are not causal employee effects.</figcaption></figure><figure><a href="reproduction/employee_spread.svg"><img loading="lazy" src="reproduction/employee_spread.png" alt="Shrunk training costs vary among eligible employee-category pairs."></a><figcaption>Shrunk training costs vary among eligible employee-category pairs.</figcaption></figure><figure><a href="reproduction/capacity_sensitivity.svg"><img loading="lazy" src="reproduction/capacity_sensitivity.png" alt="Service proxies change with capacity; consult sensitivity.csv for backlog."></a><figcaption>Service proxies change with capacity; consult sensitivity.csv for backlog.</figcaption></figure><figure><a href="reproduction/workflow_map.svg"><img loading="lazy" src="reproduction/workflow_map.png" alt="Descriptive observed status transitions; not scheduling precedence constraints."></a><figcaption>Descriptive observed status transitions; not scheduling precedence constraints.</figcaption></figure></div></section><section id="strict"><h2>Strict</h2>
+<p>All category arrivals; prior observed roster; resolution cutoff; complete weeks. 34 test weeks. Validation selected k=50, z=0.5.</p>
+<p><a href="strict/RESULTS.md">Full interpretation</a> · <a href="strict/comparison.csv">Comparison CSV</a> · <a href="strict/metadata.json">Audit and provenance</a> · <a href="strict/cross_training.csv">Training scenarios</a></p>
+<table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Method</th>
+      <th>Service proxy hours</th>
+      <th>Unassigned tickets</th>
+      <th>Coverage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fairness 1.25</td>
+      <td>78.73</td>
+      <td>376.00</td>
+      <td>93.04%</td>
+    </tr>
+    <tr>
+      <td>Fairness 1.5</td>
+      <td>78.77</td>
+      <td>245.00</td>
+      <td>95.57%</td>
+    </tr>
+    <tr>
+      <td>Fairness 2</td>
+      <td>78.12</td>
+      <td>82.00</td>
+      <td>98.60%</td>
+    </tr>
+    <tr>
+      <td>Fairness 3</td>
+      <td>75.97</td>
+      <td>11.00</td>
+      <td>99.83%</td>
+    </tr>
+    <tr>
+      <td>Greedy</td>
+      <td>76.41</td>
+      <td>4.00</td>
+      <td>99.94%</td>
+    </tr>
+    <tr>
+      <td>Historical</td>
+      <td>69.81</td>
+      <td>427.00</td>
+      <td>91.21%</td>
+    </tr>
+    <tr>
+      <td>Historical proportions</td>
+      <td>90.23</td>
+      <td>6.85</td>
+      <td>99.89%</td>
+    </tr>
+    <tr>
+      <td>M1 naive</td>
+      <td>74.10</td>
+      <td>4.00</td>
+      <td>99.94%</td>
+    </tr>
+    <tr>
+      <td>M1 tuned shrinkage</td>
+      <td>73.62</td>
+      <td>4.00</td>
+      <td>99.94%</td>
+    </tr>
+    <tr>
+      <td>M2 robust</td>
+      <td>73.45</td>
+      <td>4.00</td>
+      <td>99.94%</td>
+    </tr>
+    <tr>
+      <td>Round-robin</td>
+      <td>88.16</td>
+      <td>5.00</td>
+      <td>99.92%</td>
+    </tr>
+  </tbody>
+</table><div class="figures"><figure><a href="strict/comparison.svg"><img loading="lazy" src="strict/comparison.png" alt="Assigned-ticket service proxy. Read together with coverage and backlog."></a><figcaption>Assigned-ticket service proxy. Read together with coverage and backlog.</figcaption></figure><figure><a href="strict/optimizers_curse.svg"><img loading="lazy" src="strict/optimizers_curse.png" alt="Planning proxies are optimistic; held-out scoring changes the comparison."></a><figcaption>Planning proxies are optimistic; held-out scoring changes the comparison.</figcaption></figure><figure><a href="strict/validation.svg"><img loading="lazy" src="strict/validation.png" alt="Validation-only tuning. At z=0, the selected policy is shrinkage-only."></a><figcaption>Validation-only tuning. At z=0, the selected policy is shrinkage-only.</figcaption></figure><figure><a href="strict/fairness.svg"><img loading="lazy" src="strict/fairness.png" alt="Lower workload inequality can come with additional unassigned tickets."></a><figcaption>Lower workload inequality can come with additional unassigned tickets.</figcaption></figure><figure><a href="strict/capacity_duals.svg"><img loading="lazy" src="strict/capacity_duals.png" alt="Marginal value per ticket slot; strict-mode duals hold backlog fixed."></a><figcaption>Marginal value per ticket slot; strict-mode duals hold backlog fixed.</figcaption></figure><figure><a href="strict/cross_training.svg"><img loading="lazy" src="strict/cross_training.png" alt="Central new-pair cost assumptions can yield no benefit from training."></a><figcaption>Central new-pair cost assumptions can yield no benefit from training.</figcaption></figure><figure><a href="strict/cell_stability.svg"><img loading="lazy" src="strict/cell_stability.png" alt="Observed employee-category associations are not causal employee effects."></a><figcaption>Observed employee-category associations are not causal employee effects.</figcaption></figure><figure><a href="strict/employee_spread.svg"><img loading="lazy" src="strict/employee_spread.png" alt="Shrunk training costs vary among eligible employee-category pairs."></a><figcaption>Shrunk training costs vary among eligible employee-category pairs.</figcaption></figure><figure><a href="strict/capacity_sensitivity.svg"><img loading="lazy" src="strict/capacity_sensitivity.png" alt="Service proxies change with capacity; consult sensitivity.csv for backlog."></a><figcaption>Service proxies change with capacity; consult sensitivity.csv for backlog.</figcaption></figure><figure><a href="strict/workflow_map.svg"><img loading="lazy" src="strict/workflow_map.png" alt="Descriptive observed status transitions; not scheduling precedence constraints."></a><figcaption>Descriptive observed status transitions; not scheduling precedence constraints.</figcaption></figure></div></section><footer><p>Source: Mendeley Help Desk Tickets v3, DOI 10.17632/btm76zndnt.3. Source hashes and exact settings are saved with each scenario. Generated with OpenAI Codex assistance; independently verify course policy before submission.</p></footer></html>

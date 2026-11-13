@@ -32,3 +32,7 @@ Publisher: https://data.mendeley.com/datasets/btm76zndnt/3 (DOI 10.17632/btm76zn
 Finish M1/M2 and the honest evaluation first. Add M3, duals and capacity sensitivity next, then the bounded M4. Keep the workflow map descriptive. Excluding labor-hour optimization and scheduling is sensible because calendar duration is not effort. Report whichever results the data supports, including a robust method that fails to beat historical dispatch. Matching the historical score does not establish equivalence without uncertainty analysis.
 
 Suggested central question: How does uncertainty-aware category-level routing trade estimated service time, coverage, and workload balance under inferred capacity constraints?
+
+## Completed implementation verification
+
+The raw CSVs were found locally after this initial assessment. The implementation now reproduces 11,068 usable outcomes, 7,172 training and 3,896 test outcomes. Both scenario pipelines and both notebooks execute successfully. See results/reproduction/RESULTS.md and results/strict/RESULTS.md for actual findings. These supersede the initial verification boundary above; appendix performance claims were not assumed.

@@ -1,0 +1,63 @@
+{
+  "mode": "reproduction",
+  "selected_k": 50,
+  "selected_z": 0.0,
+  "seed": 571,
+  "random_seeds": 20,
+  "validation_weeks": 26,
+  "test_weeks": 34,
+  "validation_oracle_resolved_by_cutoff": false,
+  "validation_oracle_tickets": 2538,
+  "mean_tickets": 112.61764705882354,
+  "audit": {
+    "raw_issues": 66691,
+    "D1_period": 13788,
+    "D2_done": 12572,
+    "D3_done_categories": 11961,
+    "unmatched_snapshot_ids": 0,
+    "missing_first_assignee": 1028,
+    "D4_done_with_assignee": 11068,
+    "D5_usable": 11068,
+    "negative_duration": 0,
+    "all_category_arrivals": 13026,
+    "category_counts": {
+      "T-normal": 4824,
+      "T-high": 2961,
+      "T-urgent": 2009,
+      "Service": 1274
+    },
+    "train_outcomes": 7172,
+    "test_outcomes": 3896,
+    "arrival_assignment_time_missing": 1028,
+    "sha256": {
+      "issues.csv": "eab3b8857bc19bd917e0767fb9c30b7714d5468b25c5a1c1cd71a760e9602f02",
+      "issues_snapshot.csv": "89975cd7e0868408ea7b0a701758d54a439255d7814fd3aa14b198f9ea543948",
+      "issues_change_history.csv": "93f6d99893bac6eb755c075dc4a3c3f655cab7c6b4e2d54a3dca0b26e4b6a3c6"
+    }
+  },
+  "capacity_mode": "nonzero",
+  "strict_resolution_cutoff": false,
+  "hindsight_roster": true,
+  "complete_weeks": false,
+  "missing_assignment_times_excluded_from_prior_roster": false,
+  "cohort": "Done outcomes with first assignee",
+  "evaluation": "Retrospective test-cell shrinkage proxy; not causal or measured counterfactual outcomes",
+  "unverified_arrival_features": "Type and priority are final-record fields; histories contain no type/priority changes.",
+  "capacity_dual_check": {
+    "employee": "4kpk",
+    "week": "2022-11-28",
+    "negative_dual": 95.7225651167922,
+    "one_slot_objective_drop": 95.72256511679234,
+    "backlog_before": 20,
+    "backlog_after": 19,
+    "conditional_dual": false
+  },
+  "common_support_cells": 100,
+  "cell_correlation": 0.5176921420169024,
+  "residual_cell_correlation": 0.3785186494632775,
+  "python": "3.11.5",
+  "numpy": "1.26.2",
+  "pandas": "2.1.3",
+  "scipy": "1.11.4",
+  "elapsed_seconds": 22.646695417002775
+}

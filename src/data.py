@@ -63,6 +63,15 @@ def load_data(raw):
     if snapshot is None: raise FileNotFoundError('Place issues_snapshot.csv (or issues_snapshots.csv) in data/raw')
     paths=[raw/'issues.csv',snapshot]
     a,o,audit=prepare(*(pd.read_csv(p,low_memory=False) for p in paths))
+    history=raw/'issues_change_history.csv'
+    if history.exists():
+        h=pd.read_csv(history,low_memory=False,usecols=['id','issueid','field','value','created'])
+        h=h[h.field.eq('assignee') & h.value.notna()].copy()
+        h['assigned_at']=pd.to_datetime(h.created,utc=True,format='mixed',errors='coerce')
+        first=h.sort_values(['assigned_at','id']).drop_duplicates('issueid').set_index('issueid').assigned_at
+        for frame in (a,o): frame['assigned_at']=frame.id.map(first)
+        audit['arrival_assignment_time_missing']=int(a.assigned_at.isna().sum())
+        paths.append(history)
     audit['sha256']={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     return a,o,audit
 
