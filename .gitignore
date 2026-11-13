@@ -1,0 +1,10 @@
+data/raw/*
+!data/raw/.gitkeep
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+.superpowers/
+.DS_Store
+results/**/ticket_assignments.csv
